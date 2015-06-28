@@ -16,6 +16,16 @@ function setup_user() {
 }
 
 
+function start_xfce4() {
+    COOKIE=$(ps -ef | md5sum | cut -f 1 -d " ")
+    AUTHFILE=${HOME}/Xvfb-0.auth
+    xauth add :0 MIT-MAGIC-COOKIE-1 ${COOKIE}
+    # or custom resolution
+    Xvfb :0 -auth ${AUTHFILE} -screen 0 ${RESOLUTION} &
+    DISPLAY=:0 nohup /etc/X11/Xsession startxfce4 &
+}
+
+
 function install_nomachine() {
     wget http://download.nomachine.com/download/4.6/Linux/nomachine_4.6.4_13_amd64.deb
     dpkg -i nomachine_4.6.4_13_amd64.deb
@@ -27,6 +37,13 @@ function install_nomachine() {
     /usr/NX/bin/nxserver --useradd ${USERNAME}
 }
 
+function install_splashtop() {
+    wget http://d17kmd0va0f0mp.cloudfront.net/linux/Splashtop_Streamer_Ubuntu_14.04_v2.2.5.1-4_amd64.deb
+    dpkg -i Splashtop_Streamer_Ubuntu_14.04_v2.2.5.1-4_amd64.deb
+    # Edit $HOME/.config/splashtop-streamer/.SplashtopStreamer.rc
+    # Modify field “Port” to configure listened port number.
+    # Add fields “SharpFPS” and “SmoothFPS” to configure frame rate per second.
+}
 
 function install_intellij() {
     wget http://download.jetbrains.com/idea/ideaIU-14.1.4.tar.gz
@@ -44,16 +61,10 @@ function main() {
     apt-get -qq update
     apt-get install -y oracle-java8-installer xfce4 xvfb
 
-    COOKIE=`ps -ef | md5sum | cut -f 1 -d " "`
-    AUTHFILE=$HOME/Xvfb-0.auth
-    xauth add :0 MIT-MAGIC-COOKIE-1 $COOKIE
-    # or custom resolution
-    Xvfb :0 -auth $AUTHFILE -screen 0 ${RESOLUTION} &
-    DISPLAY=:0 nohup /etc/X11/Xsession startxfce4 &
-
-    setup_user()
-    install_nomachine()
-    install_intellij()
+    start_xfce4
+    setup_user
+    install_splashtop
+    install_intellij
 }
 
 main
