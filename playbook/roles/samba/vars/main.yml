@@ -1,0 +1,4 @@
+---
+packages:
+  - libpam-smbpass
+  - samba

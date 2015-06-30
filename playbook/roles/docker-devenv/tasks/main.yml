@@ -1,0 +1,17 @@
+---
+- name: Install Git
+  apt: pkg=git state=latest
+
+- name: Clone Repository
+  git: repo={{ repo }} dest={{ destination }}
+  notify: run dev update
+
+- name: change user to {{ user }}
+  file: path={{ destination }} owner={{ user }} group={{ user }} recurse=yes
+
+- name: add {{ extra_path }} to path
+  lineinfile:
+    dest=/etc/bash.bashrc
+    state=present
+    regexp='^export PATH={{ extra_path }}'
+    line='export PATH={{ extra_path }}:$PATH'

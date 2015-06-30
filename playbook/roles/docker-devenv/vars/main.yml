@@ -1,0 +1,4 @@
+---
+repo: "https://github.com/gewo/living-in-a-box.git"
+destination: "/opt/living-in-a-box"
+extra_path: "{{ destination }}/bin"

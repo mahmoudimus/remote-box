@@ -1,0 +1,17 @@
+---
+# based on: https://github.com/bryfry/ansible-docker
+- name: Pre-repo add dependencies
+  apt: pkg={{ item }} state=latest
+  with_items: docker_deps
+
+- name: Add docker repository key
+  apt_key: url=https://get.docker.io/gpg state=present
+
+- name: Add docker repository
+  apt_repository: repo="{{ docker_repository }}" state=present
+
+- name: Install docker
+  apt: pkg=lxc-docker state=latest update_cache=yes
+
+- name: add {{ user }} to docker group
+  user: name={{ user }} groups=docker append=yes

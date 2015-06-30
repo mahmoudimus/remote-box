@@ -1,0 +1,9 @@
+---
+docker_deps:
+  - apt-transport-https
+  - python-software-properties
+  - python-apt
+  - python-pycurl
+  - wget
+  - lxc
+docker_repository: "deb http://get.docker.io/ubuntu docker main"

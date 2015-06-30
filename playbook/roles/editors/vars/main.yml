@@ -1,0 +1,11 @@
+---
+packages:
+  - python-software-properties
+  - python-apt
+  - python-pycurl
+  - wget
+  - emacs23
+  - vim-gtk
+sublime_gpg_key: '0xeea14886'
+sublime_apt_key: http://keyserver.ubuntu.com/pks/lookup?op=get&search={{ sublime_gpg_key }}
+sublime_repository: "deb http://ppa.launchpad.net/webupd8team/sublime-text-3/ubuntu saucy main"

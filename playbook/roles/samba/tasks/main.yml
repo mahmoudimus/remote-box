@@ -1,0 +1,19 @@
+---
+- name: install samba packages
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items: packages
+
+- name: add {{ user }} to sambashare group
+  user: name={{ user }} groups=sambashare append=yes
+
+- name: copy samba config
+  copy: src=../files/smb.conf dest=/etc/samba/smb.conf
+    owner=root group=root mode=644 backup=yes
+  notify: restart samba
+
+- name: copy smb_adduser script
+  copy: src=smb_adduser dest=/usr/local/sbin/smb_adduser
+    owner=root group=root mode=755
+
+- name: add user to samba
+  command: smb_adduser {{ user }} creates=/home/{{ user }}/.smbuser

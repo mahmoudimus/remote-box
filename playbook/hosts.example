@@ -1,0 +1,6 @@
+[dev_hosts]
+devhost1
+devhost2
+
+[dev_hosts:vars]
+ansible_ssh_user=root

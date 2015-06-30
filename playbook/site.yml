@@ -1,0 +1,13 @@
+---
+- name: Full Development Environment with Docker, Samba, xrdp and Desktop Environment
+  vars:
+    user: ubuntu
+  hosts: dev_hosts
+  roles:
+    - editors
+    - git-tools
+    - xrdp
+    - lxde
+    - samba
+    - docker
+    - docker-devenv

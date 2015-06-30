@@ -1,0 +1,6 @@
+---
+- name: restart samba
+  command: service {{ item }} restart
+  with_items:
+    - smbd
+    - nmbd

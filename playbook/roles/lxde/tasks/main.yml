@@ -1,0 +1,6 @@
+---
+- name: Install LXDE
+  apt: pkg={{ item }} state=latest install-recommends=no
+  with_items:
+    - lxde
+    - chromium-browser

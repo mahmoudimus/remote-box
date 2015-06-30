@@ -1,0 +1,9 @@
+---
+- name: Add sublime repository key
+  apt_key: url={{ sublime_apt_key }} state=present
+
+- name: Add sublime repository
+  apt_repository: repo="{{ sublime_repository }}" state=present
+
+- name: Install sublime
+  apt: pkg=sublime-text-installer state=latest update_cache=yes

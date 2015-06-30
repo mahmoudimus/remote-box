@@ -1,0 +1,7 @@
+---
+- name: Install Rdesktop server
+  apt: pkg=xrdp state=latest
+
+- name: copy xrdp config
+  copy: src=xrdp.ini dest=/etc/xrdp/xrdp.ini owner=root group=root mode=644 backup=yes
+  notify: restart xrdp

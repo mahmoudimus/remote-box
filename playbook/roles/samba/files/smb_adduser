@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Add a user to samba.
+#
+# New users must update their password on the next login to sync it with the
+# samba password database.
+
+set -e
+[ -n "$DEBUG" ] && set -x
+
+user=$1
+if ! pdbedit -L -u $user >/dev/null 2>&1; then
+  smbpasswd -a -n $user
+  passwd -e $user
+fi
+touch /home/$user/.smbuser
