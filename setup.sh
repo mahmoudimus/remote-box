@@ -1,8 +1,22 @@
 #!/bin/bash
 
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run as root"
-    exit
+if [[ "$EUID" -eq 0 ]]; then
+    echo "Please do **NOT** run as root."
+    exit 1
+fi
+
+## invalidate any cached sudo, prompt for password
+sudo -kk
+sudo whoami >/dev/null
+## actually checks if sudo credentials were cached successfully
+if [[ $(sudo whoami) == 'root' ]]
+then
+    printf '\nGreat! User has sudo, continue...\n\n'
+else
+    echo 'Seems like user does not have sudo!'
+    echo 'Please visit this page to read how to grant permissions to user:'
+    echo 'https://www.digitalocean.com/community/articles/how-to-edit-the-sudoers-file-on-ubuntu-and-centos'
+    exit 1
 fi
 
 RESOLUTION=${1:-"2048x1280x24"}
@@ -12,7 +26,9 @@ USERNAME=${2:-"mahmoud"}
 function setup_user() {
     useradd -m -d /home/${USERNAME} -s /bin/bash ${USERNAME}
     usermod -a -G admin ${USERNAME}
-    passwd ${USERNAME}
+    echo "${USERNAME}" | passwd --stdin
+    cp -pR ~ubuntu/.ssh ~${USERNAME}
+    chown -R ${USERNAME}: ~${USERNAME}/.ssh/
 }
 
 
@@ -47,10 +63,13 @@ function install_splashtop() {
 
 function install_intellij() {
     wget http://download.jetbrains.com/idea/ideaIU-14.1.4.tar.gz
-    mv ideaIU-14.1.4.tar.gz intellij-idea.tar.gz
-    tar xzvf intellij-idea.tar.gz
+    tar xzf iideaIU-14.1.4.tar.gz
+    mv ideaIU-14.1.4 intellij-idea
 }
 
+function install_xrdp () {
+    sudo apt-get install
+}
 
 function main() {
     # setup java
@@ -61,9 +80,10 @@ function main() {
     apt-get -qq update
     apt-get install -y oracle-java8-installer xfce4 xvfb
 
-    start_xfce4
+#    start_xfce4
     setup_user
-    install_splashtop
+#    install_splashtop
+    install_xrdp
     install_intellij
 }
 
