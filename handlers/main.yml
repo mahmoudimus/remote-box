@@ -1,3 +1,9 @@
 ---
 - name: restart xrdp
   command: service xrdp restart
+
+- name: register tightvncserver
+  command: update-rc.d tightvncserver defaults
+
+- name: restart tightvncserver
+  command: service tightvncserver restart

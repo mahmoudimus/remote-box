@@ -47,7 +47,9 @@
         group=root
         mode=755
         backup=no
-  notify: restart tightvncserver
+  notify:
+    - register tightvncserver
+    - restart tightvncserver
 
 # TODO: replace with tar ball expansion
 - name: clone .emacs.d/
