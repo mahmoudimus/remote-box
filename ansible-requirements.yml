@@ -1,0 +1,8 @@
+---
+  # Community playbooks
+
+  - src: git+git@github.com:mahmoudimus/docker-host-osx.git
+    name: docker-host-osx
+
+  - src: git+git@github.com:Stouts/Stouts.openvpn.git
+    name: Stouts.openvpn

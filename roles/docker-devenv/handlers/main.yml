@@ -1,3 +1,0 @@
----
-- name: run dev update
-  shell: "{{ extra_path }}/dev update"

@@ -1,4 +1,0 @@
----
-- name: Install git tools
-  apt: pkg={{ item }} state=latest
-  with_items: packages
