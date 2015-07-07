@@ -84,16 +84,16 @@ EOF
     override.ssh.private_key_path = "#{File.expand_path('~')}/.ssh/id_rsa"
   end
 
-  config.vm.provision 'ansible' do |ansible|
-    ansible.playbook = 'site.yml'
-    ansible.host_key_checking = false
-    ansible.verbose = 'vvv'
-    ansible.extra_vars = {
-      :bridge_network => BRIDGE_NETWORK,
-      :bridge_netmask => BRIDGE_NETMASK,
-      :local_user => ENV['USER']
-    }
-  end
+  # config.vm.provision 'ansible' do |ansible|
+  #   ansible.playbook = 'site.yml'
+  #   ansible.host_key_checking = false
+  #   ansible.verbose = 'vvv'
+  #   ansible.extra_vars = {
+  #     :bridge_network => BRIDGE_NETWORK,
+  #     :bridge_netmask => BRIDGE_NETMASK,
+  #     :local_user => ENV['USER']
+  #   }
+  # end
 
   # use unison instead
   config.vm.synced_folder ".", "/vagrant", disabled: true
