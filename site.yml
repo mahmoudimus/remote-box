@@ -7,15 +7,9 @@
 # install openvpn + generate client
 # install docker-host-osx
 # (?) install unison
-- name: Full Development Environment with Docker, Samba, xrdp and Desktop Environment
-  vars:
-    user: ubuntu
-  hosts: dev_hosts
+- name:  bootstrap
+  hosts: all
   roles:
-    - editors
-    - git-tools
-    - xrdp
-    - lxde
-    - samba
-    - docker
-    - docker-devenv
+    - '../remote-box'
+    - 'openvpn'
+    - 'docker-host-osx'

@@ -44,16 +44,16 @@ Vagrant.configure("2") do |config|
         region.spot_max_price = "0.019"
     end
 
-    # aws.block_device_mapping = [
-    #   {
-    #     'DeviceName' => "/dev/sdl",
-    #     'VirtualName' => "mysql_data",
-    #     'Ebs.VolumeSize' => 100,
-    #     'Ebs.DeleteOnTermination' => true,
-    #     'Ebs.VolumeType' => 'io1',
-    #     'Ebs.Iops' => 1000
-    #   }
-    # ]
+    aws.block_device_mapping = [
+      {
+        'DeviceName' => "/dev/sda1",
+        'VirtualName' => "code",
+        'Ebs.VolumeSize' => 100,
+        'Ebs.DeleteOnTermination' => true,
+        # 'Ebs.VolumeType' => 'io1',
+        # 'Ebs.Iops' => 1000
+      }
+    ]
 
     aws.user_data = <<EOF
 #!/bin/bash
@@ -61,10 +61,11 @@ Vagrant.configure("2") do |config|
 # NOTE: if you want to use rsync, uncomment the below and disable pty
 # sed -i -e 's/^Defaults.*requiretty/# Defaults requiretty/g' /etc/sudoers
 ###
+resize2fs /dev/sda1
 
 # install unison
-sudo apt-get update -qq
-sudo apt-get install make ocaml exuberant-ctags git htop
+apt-get update -qq
+apt-get install make ocaml exuberant-ctags git htop
 cd /tmp
 curl http://www.seas.upenn.edu/~bcpierce/unison/download/releases/stable/unison-2.48.3.tar.gz | tar xz
 cd /tmp/unison-2.48.3 && make UISTYLE=text
@@ -84,7 +85,7 @@ EOF
   end
 
   config.vm.provision 'ansible' do |ansible|
-    ansible.playbook = '/Users/mahmoud/code/ops/docker/docker-host-osx/docker-host.yml'
+    ansible.playbook = 'site.yml'
     ansible.host_key_checking = false
     ansible.verbose = 'vvv'
     ansible.extra_vars = {
