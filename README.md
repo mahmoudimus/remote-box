@@ -1,6 +1,8 @@
-# remote-box
-my attempt at a remote development environment
-ansible-devenv
-==============
+# REMOTE-BOX
 
-ansible playbook for a development environment with samba, docker, xrdp, LXDE, Vim, Sublime, ...
+my attempt at a remote development environment
+
+## Install
+
+- `ansible-galaxy install -r ansible-requirements.yml -p $(pwd)/roles --force`
+- `vagrant up`
