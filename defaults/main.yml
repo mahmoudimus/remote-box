@@ -1,0 +1,24 @@
+---
+remote_packages:
+  - python-software-properties
+  - software-properties-common
+  - git
+  - xrdp
+  - lxde
+  - chromium-browser
+  - emacs-snapshot
+  - tightvncserver
+  - htop
+  - oracle-java8-installer
+  - xvfb
+  - zsh
+  - tmux
+  - x11-xserver-utils
+  - xfonts-100dpi
+  - xfonts-75dpi
+  - xfonts-base
+
+
+emacs_dotfiles_git_repo: https://github.com/mahmoudimus/.emacs.d.git
+emacs_dotfiles_git_version: 'master'
+emacs_dotfiles_dest: /home/mahmoud/.emacs.d/

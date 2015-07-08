@@ -1,0 +1,74 @@
+---
+- name: Accept Oracle Java8 License
+  shell: "echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections"
+
+- name: Ubuntu External PPAs
+  apt_repository:
+    repo={{ item }}
+    update_cache=yes
+  with_items:
+    - 'ppa:ubuntu-elisp/ppa'
+    - 'ppa:webupd8team/java'
+    - 'ppa:pi-rho/dev'  # tmux
+
+- name: Install packages
+  apt: pkg={{ item }} state=latest install-recommends=no
+  with_items: remote_packages
+
+- name: xrdp | set lxde as session manager
+  shell: echo "lxsession -s LXDE -e LXDE" > /home/mahmoud/.xsession
+
+- name: xrdp | copy over config
+  copy: src=xrdp/xrdp.ini
+        dest=/etc/xrdp/xrdp.ini
+        owner=root
+        group=root
+        mode=644
+        backup=yes
+  notify: restart xrdp
+
+- name: tightvnc | create vnc dir
+  sudo_user: mahmoud
+  file: path=/home/mahmoud/.vnc state=directory
+
+- name: tightvnc | setup xstartup
+  sudo_user: mahmoud
+  copy: src=tightvncserver/xstartup.sh
+        dest=/home/mahmoud/.vnc/xstartup
+        owner=mahmoud
+        group=mahmoud
+        mode=755
+        backup=no
+
+- name: tightvnc | copy over config
+  copy: src=tightvncserver/initd.sh
+        dest=/etc/init.d/tightvncserver
+        owner=root
+        group=root
+        mode=755
+        backup=no
+  notify:
+    - register tightvncserver
+    - restart tightvncserver
+
+# TODO: replace with tar ball expansion
+- name: clone .emacs.d/
+  sudo_user: mahmoud
+  git: repo={{ emacs_dotfiles_git_repo }}
+       dest={{ emacs_dotfiles_dest }}
+       version={{ emacs_dotfiles_git_version }}
+       accept_hostkey=True
+       force=yes
+  ignore_errors: true
+
+- name: ensure lxde backgrounds directory exists, otherwise annoying error
+  file: path=/usr/share/backgrounds
+        owner=root
+        group=root
+        state=directory
+
+# setup openpn
+# setup docker-host
+
+# - name: update to use lxde for display manager
+#  command: update-alternatives --config x-session-manager
