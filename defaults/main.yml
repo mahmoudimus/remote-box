@@ -14,6 +14,10 @@ remote_packages:
   - zsh
   - tmux
   - x11-xserver-utils
+  - xfonts-100dpi
+  - xfonts-75dpi
+  - xfonts-base
+
 
 emacs_dotfiles_git_repo: https://github.com/mahmoudimus/.emacs.d.git
 emacs_dotfiles_git_version: 'master'

@@ -65,7 +65,7 @@ resize2fs /dev/sda1
 
 # install unison
 apt-get update -qq
-apt-get install make ocaml exuberant-ctags git htop
+apt-get --yes --force-yes install make ocaml exuberant-ctags git htop
 cd /tmp
 curl http://www.seas.upenn.edu/~bcpierce/unison/download/releases/stable/unison-2.48.3.tar.gz | tar xz
 cd /tmp/unison-2.48.3 && make UISTYLE=text

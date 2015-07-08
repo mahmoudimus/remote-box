@@ -28,8 +28,14 @@ case "$1" in
     pkill Xtightvnc
     echo "Tightvncserver stopped"
     ;;
+  restart)
+      pkill Xtightvnc
+      echo "Tightvncserver stopped"
+      su $USER -c '/usr/bin/tightvncserver :1'
+      echo "Starting TightVNC server for $USER "
+      ;;
   *)
-    echo "Usage: /etc/init.d/tightvncserver {start|stop}"
+    echo "Usage: /etc/init.d/tightvncserver {start|stop|restart}"
     exit 1
     ;;
 esac
