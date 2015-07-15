@@ -10,6 +10,7 @@
     - 'ppa:ubuntu-elisp/ppa'
     - 'ppa:webupd8team/java'
     - 'ppa:pi-rho/dev'  # tmux
+    - 'ppa:timothy-downey/maven3'
 
 - name: Install packages
   apt: pkg={{ item }} state=latest install-recommends=no
