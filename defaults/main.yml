@@ -17,7 +17,7 @@ remote_packages:
   - xfonts-100dpi
   - xfonts-75dpi
   - xfonts-base
-
+  - maven3
 
 emacs_dotfiles_git_repo: https://github.com/mahmoudimus/.emacs.d.git
 emacs_dotfiles_git_version: 'master'

@@ -1,12 +1,7 @@
 ---
-# install packages {git}
-# install emacs24.5 from apt
-# install xrdp
-# install lxde
 # install netatalk (shared) https://github.com/jansauer/netatalk-ansible-role
 # install openvpn + generate client
 # install docker-host-osx
-# (?) install unison
 - name:  bootstrap
   hosts: all
   roles:
