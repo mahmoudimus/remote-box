@@ -11,6 +11,7 @@
     - 'ppa:webupd8team/java'
     - 'ppa:pi-rho/dev'  # tmux
     - 'ppa:timothy-downey/maven3'
+    - 'ppa:alessandro-strada/ppa'
 
 - name: Install packages
   apt: pkg={{ item }} state=latest install-recommends=no
