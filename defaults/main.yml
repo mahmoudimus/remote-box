@@ -2,6 +2,7 @@
 remote_packages:
   - python-software-properties
   - software-properties-common
+  - google-drive-ocamlfuse
   - git
   - xrdp
   - lxde
