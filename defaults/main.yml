@@ -2,11 +2,9 @@
 remote_packages:
   - python-software-properties
   - software-properties-common
+  - google-drive-ocamlfuse
   - git
   - xrdp
-  - lxde
-  - chromium-browser
-  - emacs-snapshot
   - tightvncserver
   - htop
   - oracle-java8-installer
@@ -18,6 +16,9 @@ remote_packages:
   - xfonts-75dpi
   - xfonts-base
   - maven3
+  - xsel
+  - xclip
+  - autocutsel
 
 emacs_dotfiles_git_repo: https://github.com/mahmoudimus/.emacs.d.git
 emacs_dotfiles_git_version: 'master'
